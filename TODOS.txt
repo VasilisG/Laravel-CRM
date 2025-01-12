@@ -1,0 +1,14 @@
+CRUD operations
+------------------------
+[DONE] Clients
+[DONE] Projects
+[DONE] Tasks
+
+[] Users / Roles
+[] Logout Button
+[] Authentication / Authorization Middleware (third party package)
+---------------------------------------------------------------
+
+[DONE] Dashboard
+[DONE] Icons
+[DONE] Table Status Improvement
