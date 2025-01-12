@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="login-actions mt-6 flex justify-center">
-        <button class="login-button block w-1/2 p-3 rounded-xl text-white font-bold bg-gray-800 hover:bg-gray-600" type="submit">Login</button>
+        <button class="login-button block w-1/2 p-3 rounded-xl text-white font-bold bg-gray-800 hover:bg-gray-600 transition-colors duration-300" type="submit">Login</button>
       </div>
     </form>
   </div>
