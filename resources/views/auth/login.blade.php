@@ -1,6 +1,6 @@
 <x-head title="CRM Login"></x-head>
 <div class="login-container relative w-full h-full flex justify-center items-center">
-  <img class="login-background-image absolute w-full h-full" src="{{ URL::to('assets/images/login-background.jpg') }}"/>
+  <img class="login-background-image absolute w-full h-full brightness-75" src="{{ URL::to('assets/images/login-background.jpg') }}"/>
   <div class="login-container-inner z-10 p-6 bg-white rounded-xl shadow-lg max-w-[500px]">
     <div class="login-prompt-container text-center">
       <p class="login-prompt text-2xl font-bold">Login with your email.</p>
