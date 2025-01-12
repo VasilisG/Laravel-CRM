@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', DashboardController::class);
 
+Route::get('/login', function(){
+  return view('auth.login');
+});
+
 Route::resource('clients',  ClientController::class,  ['except' => [ 'show' ]]);
 Route::resource('projects', ProjectController::class, ['except' => [ 'show' ]]);
 Route::resource('tasks',    TaskController::class,    ['except' => [ 'show' ]]);
