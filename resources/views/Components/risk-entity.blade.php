@@ -1,4 +1,6 @@
-<div class="dash-list-container p-4 border border-gray-300 rounded-lg inline-block">
+<div 
+  {{ $attributes->merge(['class' => 'dash-list-container p-4 border border-gray-300 rounded-lg inline-block'])->filter(fn ($value, $key) => $key != 'data') }}
+>
   <div class="dash-list-title-container border-b">
     <h2 class="dash-list-title text-4xl font-semibold pb-2">{{ $title }}</h2>
   </div>
@@ -14,9 +16,9 @@
             @if($elem->deadline < now()->toDateTimeString())
               <span class="bg-red-200 text-red-800 font-bold px-2 py-1 rounded-lg">Overdue</span>
             @elseif($elem->deadline == now()->toDateTimeString())
-              <span class="bg-amber-200 text-amber-700 font-bold px-2 py-1 rounded-lg">Deadline ends today</span>
+              <span class="bg-blue-200 text-white font-bold px-2 py-1 rounded-lg">Deadline ends today</span>
             @else
-              <span class="bg-lime-200 text-lime-700 font-bold px-2 py-1 rounded-lg">Approaching deadline</span>
+              <span class="bg-amber-200 text-black-700 font-bold px-2 py-1 rounded-lg">Approaching deadline</span>
             @endif
           </span>
         </li>
