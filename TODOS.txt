@@ -5,8 +5,9 @@ CRUD operations
 [DONE] Tasks
 
 [] Users / Roles
-[] Logout Button
-[] Authentication / Authorization Middleware (third party package)
+[DONE] Logout Button
+[DONE] Authentication
+[] Authorization Middleware (third party package)
 ---------------------------------------------------------------
 
 [DONE] Dashboard

@@ -1,4 +1,4 @@
-<form {{ $attributes->merge(['class' => 'logout-form']) }} action="{{ route('logout') }}">
+<form {{ $attributes->merge(['class' => 'logout-form']) }} method="POST" action="{{ route('logout') }}">
   @csrf
   @method('POST')
   <x-action-button 

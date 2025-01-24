@@ -44,6 +44,10 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public static function searchableFields(){
+        return ['name', 'email'];
+    }
+
     public function roles(): BelongsToMany {
         return $this->belongsToMany(Role::class);
     }

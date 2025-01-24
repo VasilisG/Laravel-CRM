@@ -116,6 +116,34 @@ const TASK_TABLE_COLUMNS = [
   ]
 ];
 
+const USER_TABLE_COLUMNS = [
+  'name' => [
+    'label'    => 'Name',
+    'type'     => 'string',
+    'sortable' => true
+  ],
+  'email' => [
+    'label'    => 'Email',
+    'type'     => 'string',
+    'sortable' => false
+  ],
+  'created_at' => [
+    'label'    => 'Created At',
+    'type'     => 'string',
+    'sortable' => true
+  ],
+  'updated_at' => [
+    'label'    => 'Updated At',
+    'type'     => 'string',
+    'sortable' => false
+  ],
+  'actions' => [
+    'label'    => 'Actions',
+    'type'     => 'actions',
+    'sortable' => false
+  ] 
+];
+
 const CURRENCY = 'EUR';
 
 const MIN_COST = 100;
@@ -133,6 +161,7 @@ return [
   'CLIENT_TABLE_COLUMNS'  => CLIENT_TABLE_COLUMNS,
   'PROJECT_TABLE_COLUMNS' => PROJECT_TABLE_COLUMNS,
   'TASK_TABLE_COLUMNS'    => TASK_TABLE_COLUMNS,
+  'USER_TABLE_COLUMNS'    => USER_TABLE_COLUMNS,
   'PAGE_LIMIT'            => PAGE_LIMIT,
   'CURRENCY'              => CURRENCY
 ];
