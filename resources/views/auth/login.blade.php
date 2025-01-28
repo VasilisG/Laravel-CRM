@@ -26,5 +26,6 @@
         <button class="login-button block w-1/2 p-3 rounded-xl text-white font-bold bg-gray-800 hover:bg-gray-600 transition-colors duration-300" type="submit">Login</button>
       </div>
     </form>
+    <x-messages.all></x-messages.all>
   </div>
 </div>

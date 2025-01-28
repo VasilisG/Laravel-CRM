@@ -4,9 +4,10 @@ CRUD operations
 [DONE] Projects
 [DONE] Tasks
 
-[] Users / Roles
+[DONE] Users
 [DONE] Logout Button
 [DONE] Authentication
+[] Roles
 [] Authorization Middleware (third party package)
 ---------------------------------------------------------------
 

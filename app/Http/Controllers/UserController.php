@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -32,7 +36,36 @@ class UserController extends Controller
         ]);
     }
 
+    public function store(Request $request){
+
+        $validator = Validator::make($request->all(),
+            [
+                'name'                  => ['required', 'max:255'],
+                'email'                 => ['required', 'unique:clients', 'email:filter', 'max:255'],
+                'password'              => ['required', 'confirmed', Password::defaults()],
+                'current-user-password' => ['required', 'sometimes', 'current_password']
+            ]
+        );
+
+        if($validator->fails()){
+            return back()
+            ->withErrors($validator)
+            ->withInput($request->all());
+        }
+
+        User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password'])
+        ]);
+
+        return redirect()
+            ->route('users.index')
+            ->with('success', 'User successfully created.');
+    }
+
     public function edit($id){
+
         $user = User::find($id);
 
         if(!$user) {
@@ -47,11 +80,82 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(){
+    public function update(Request $request, $id){
+
+        $user = User::find($id);
+
+        if($user) {
+
+            $rules = [
+                'name'                  => ['required', 'max:255'],
+                'email'                 => ['required', 'unique:clients', 'email:filter', 'max:255'],
+                'current-user-password' => ['required', 'sometimes', 'current_password']
+            ];
+
+            if($request->filled('password')) {
+                $rules['password'] = ['required', 'confirmed', Password::defaults()];
+            }
+
+            $validator = Validator::make($request->all(), $rules);
+
+            if($validator->fails()){
+                return back()
+                    ->withErrors($validator)
+                    ->withInput($request->all());
+            }
+
+            $updateData = [
+                'name' => $request['name'],
+                'email' => $request['email']
+            ];
+
+            if($request->filled('password')){
+                $updateData['password'] = Hash::make($request['password']);
+            }
+
+            $user->update($updateData);
+
+            return redirect()
+                ->route('users.index')
+                ->with('success', 'User successfully updated.');
+        }
+
+        else return redirect()
+                ->route('users.index')
+                ->with('error', 'Could not update user. User not found.');
 
     }
 
-    public function destroy(){
+    public function destroy(Request $request, $id){
 
+        $user = User::find($id);
+
+        if($user) {
+
+            $currentUser = Auth::user();
+
+            $user->delete();
+
+            if($id === $currentUser->id){
+
+                Auth::guard('web')->logout();
+
+                $request->session()->invalidate();
+
+                $request->session()->regenerateToken();
+
+                return redirect()
+                        ->route('login')
+                        ->with('success', 'User successfully deleted.');
+            }
+
+            else return redirect()
+                        ->route('users.index')
+                        ->with('success', 'User successfully deleted.');
+        }
+
+        else return redirect()
+                    ->route('users.index')
+                    ->with('error', 'Could not delete user, User not found.');
     }
 }

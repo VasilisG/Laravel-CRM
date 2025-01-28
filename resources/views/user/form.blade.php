@@ -13,10 +13,10 @@
       <div class="form-fields grid grid-cols-2 gap-x-6 gap-y-3">
         <x-inputs.text-field label="Name" id="name-field" name="name" required="true" value="{{ $user->name ?? '' }}"></x-inputs.text-field>
         <x-inputs.text-field type="email" label="Email" id="email-field" name="email" required="true" value="{{ $user->email ?? '' }}"></x-inputs.text-field>
-        <x-inputs.text-field type="password" label="Password" id="password-field" name="password" required="true"></x-inputs.text-field>
-        <x-inputs.text-field type="password" label="Confirm Password" id="confirm-password-field" name="confirm-password" required="true"></x-inputs.text-field>
+        <x-inputs.text-field type="password" label="Password" id="password-field" name="password" required="{{ $type === 'create' }}"></x-inputs.text-field>
+        <x-inputs.text-field type="password" label="Confirm Password" id="confirm-password-field" name="password_confirmation" required="{{ $type === 'create' }}"></x-inputs.text-field>
       </div>
-      @if(Auth::id() !== $user->id)
+      @if($type === 'create' || Auth::id() !== $user->id)
         <div class="form-fields grid grid-cols-2 gap-x-6 gap-y-3 mt-6 pt-3 border-t">
           <x-inputs.text-field type="password" label="Current User Password" id="current-user-password-field" name="current-user-password" required="true"></x-inputs.text-field>
         </div>
