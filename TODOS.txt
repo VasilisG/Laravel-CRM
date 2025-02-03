@@ -8,6 +8,7 @@ CRUD operations
 [DONE] Logout Button
 [DONE] Authentication
 [] Roles
+[] Permissions (view, create, edit, delete)
 [] Authorization Middleware (third party package)
 ---------------------------------------------------------------
 

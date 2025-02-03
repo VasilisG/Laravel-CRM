@@ -144,9 +144,7 @@ class UserController extends Controller
 
                 $request->session()->regenerateToken();
 
-                return redirect()
-                        ->route('login')
-                        ->with('success', 'User successfully deleted.');
+                return redirect()->route('login');
             }
 
             else return redirect()
