@@ -13,7 +13,7 @@ class RoleController extends Controller
         if($request->has('search')){
             $queryValue = $request->input('search');
             $roles = Role::query();
-            foreach(Role::searchableFields() as $index => $attribute) {
+            foreach(['name', 'guard_name'] as $index => $attribute) {
                 $roles = $index == 0 
                 ? $roles->where($attribute, 'LIKE', '%' . $queryValue . '%')
                 : $roles->orWhere($attribute, 'LIKE', '%' . $queryValue . '%');
@@ -74,7 +74,7 @@ class RoleController extends Controller
 
             return redirect()
                 ->route('roles.index')
-                ->with('error', 'Could not find entity with ID: ' . $id);
+                ->with('error', 'Could not find role with ID: ' . $id);
         }
 
         else return view('role.form', [
@@ -103,7 +103,7 @@ class RoleController extends Controller
             if(!$role){
                 return redirect()
                     ->route('roles.index')
-                    ->with('error', 'Could not find entity with ID: ' . $id);
+                    ->with('error', 'Could not find role with ID: ' . $id);
             }
             else {
                 $role->update(['name' => $request['role-name']]);
@@ -129,16 +129,14 @@ class RoleController extends Controller
 
         $role = Role::findById($id);
 
-        if(!$role){
-            return redirect()
-                ->route('roles.index')
-                ->with('error', 'Could not find entity with ID: ' . $id);
-        }
-        else {
+        if($role){
+
             $role->delete();
+
             return redirect()
                 ->route('roles.index')
                 ->with('success', 'Role successfully deleted.');
         }
+        else return back()->with('error', 'Could not role entity with ID: ' . $id);
     }
 }

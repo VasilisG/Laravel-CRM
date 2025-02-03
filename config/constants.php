@@ -200,5 +200,6 @@ return [
   'USER_TABLE_COLUMNS'    => USER_TABLE_COLUMNS,
   'ROLE_TABLE_COLUMNS'    => ROLE_TABLE_COLUMNS,
   'PAGE_LIMIT'            => PAGE_LIMIT,
-  'CURRENCY'              => CURRENCY
+  'CURRENCY'              => CURRENCY,
+  'PERMISSIONS'           => PERMISSIONS
 ];

@@ -17,11 +17,11 @@
         <fieldset class="permission-fieldset">
           <legend class="font-bold">Permissions</legend>
           <div class="permissions-container grid grid-cols-2 gap-x-6 gap-y-3 border p-4 mt-2">
-            <x-inputs.checkbox-field name="clients" id="clients" label="Clients" value="{{ $role->hasPermissionTo('clients') ?? '' }}"></x-inputs.checkbox-field>
-            <x-inputs.checkbox-field name="projects" id="projects" label="Projects" value="{{ $role->hasPermissionTo('projects') ?? '' }}"></x-inputs.checkbox-field>
-            <x-inputs.checkbox-field name="tasks" id="tasks" label="Tasks" value="{{ $role->hasPermissionTo('tasks') ?? '' }}"></x-inputs.checkbox-field>
-            <x-inputs.checkbox-field name="users" id="users" label="Users" value="{{ $role->hasPermissionTo('users') ?? '' }}"></x-inputs.checkbox-field>
-            <x-inputs.checkbox-field name="roles" id="roles" label="Roles" value="{{ $role->hasPermissionTo('roles') ?? '' }}"></x-inputs.checkbox-field>
+            <x-inputs.checkbox-field name="clients" id="clients" label="Clients" value="{{ $role ? $role->hasPermissionTo('clients') : '' }}"></x-inputs.checkbox-field>
+            <x-inputs.checkbox-field name="projects" id="projects" label="Projects" value="{{ $role ? $role->hasPermissionTo('projects') : '' }}"></x-inputs.checkbox-field>
+            <x-inputs.checkbox-field name="tasks" id="tasks" label="Tasks" value="{{ $role ? $role->hasPermissionTo('tasks') : '' }}"></x-inputs.checkbox-field>
+            <x-inputs.checkbox-field name="users" id="users" label="Users" value="{{ $role ? $role->hasPermissionTo('users') : '' }}"></x-inputs.checkbox-field>
+            <x-inputs.checkbox-field name="roles" id="roles" label="Roles" value="{{ $role ? $role->hasPermissionTo('roles') : '' }}"></x-inputs.checkbox-field>
           </div>
         </fieldset>
       </div>
@@ -34,7 +34,7 @@
       @if($type === 'update')
         <form 
           class="role-form entity-form" 
-          action="{{ URL::to('role/' . $role->id) }}" 
+          action="{{ route('roles.destroy', $role->id) }}" 
           method="POST"
           id="delete-form"
         >
