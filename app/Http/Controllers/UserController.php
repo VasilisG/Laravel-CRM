@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -30,9 +31,13 @@ class UserController extends Controller
     }
 
     public function create(){
+
+        $roles = Role::all();
+
         return view('user.form', [
-            'type' => 'create',
-            'user' => null
+            'type'  => 'create',
+            'user'  => null,
+            'roles' =>  $roles
         ]);
     }
 
@@ -41,6 +46,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(),
             [
                 'name'                  => ['required', 'max:255'],
+                'role'                  => ['required'],
                 'email'                 => ['required', 'unique:clients', 'email:filter', 'max:255'],
                 'password'              => ['required', 'confirmed', Password::defaults()],
                 'current-user-password' => ['required', 'sometimes', 'current_password']
@@ -53,11 +59,13 @@ class UserController extends Controller
             ->withInput($request->all());
         }
 
-        User::create([
+        $user = User::create([
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password'])
         ]);
+
+        $user->syncRoles($request['role']);
 
         return redirect()
             ->route('users.index')
@@ -65,6 +73,8 @@ class UserController extends Controller
     }
 
     public function edit($id){
+
+        $roles = Role::all();
 
         $user = User::find($id);
 
@@ -75,8 +85,9 @@ class UserController extends Controller
         }
 
         return view('user.form', [
-            'type' => 'update',
-            'user' => $user
+            'type'  => 'update',
+            'user'  => $user,
+            'roles' => $roles
         ]);
     }
 
@@ -88,6 +99,7 @@ class UserController extends Controller
 
             $rules = [
                 'name'                  => ['required', 'max:255'],
+                'role'                  => ['required'],
                 'email'                 => ['required', 'unique:clients', 'email:filter', 'max:255'],
                 'current-user-password' => ['required', 'sometimes', 'current_password']
             ];
@@ -114,6 +126,8 @@ class UserController extends Controller
             }
 
             $user->update($updateData);
+
+            $user->syncRoles($request['role']);
 
             return redirect()
                 ->route('users.index')

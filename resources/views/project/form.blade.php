@@ -5,6 +5,7 @@
       action="{{ $type === 'create' ? URL::to('projects') : URL::to('projects/' . $project->id) }}" 
       method="POST"
       id="create-update-form"
+      autocomplete="off"
     >
       @if($type === 'update')
         @method('PUT')

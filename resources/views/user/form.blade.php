@@ -5,6 +5,7 @@
       action="{{ $type === 'create' ? URL::to('users') : URL::to('users/' . $user->id) }}" 
       method="POST"
       id="create-update-form"
+      autocomplete="off"
     >
       @if($type === 'update')
         @method('PUT')
@@ -15,6 +16,22 @@
         <x-inputs.text-field type="email" label="Email" id="email-field" name="email" required="true" value="{{ $user->email ?? '' }}"></x-inputs.text-field>
         <x-inputs.text-field type="password" label="Password" id="password-field" name="password" required="{{ $type === 'create' }}"></x-inputs.text-field>
         <x-inputs.text-field type="password" label="Confirm Password" id="confirm-password-field" name="password_confirmation" required="{{ $type === 'create' }}"></x-inputs.text-field>
+        <div class="roles-container">
+          <fieldset class="roles-fieldset">
+            <legend class="font-bold">Roles</legend>
+            <div class="roles-buttons mt-2 p-3 border flex flex-col gap-2">
+              @foreach($roles as $role)
+                <x-inputs.radio-button
+                  id="{{ $role->id }}"
+                  name="role"
+                  value="{{ $role->name }}"
+                  checked="{{ isset($user) ? $user->hasRole($role->name) : false }}"
+                  required="true"
+                ></x-inputs.radio-button>
+              @endforeach
+            </div>
+          </fieldset>
+        </div>
       </div>
       @if($type === 'create' || Auth::id() !== $user->id)
         <div class="form-fields grid grid-cols-2 gap-x-6 gap-y-3 mt-6 pt-3 border-t">

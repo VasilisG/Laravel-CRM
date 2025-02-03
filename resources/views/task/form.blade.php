@@ -5,6 +5,7 @@
       action="{{ $type === 'create' ? URL::to('tasks') : URL::to('tasks/' . $task->id) }}" 
       method="POST"
       id="create-update-form"
+      autocomplete="off"
     >
       @if($type === 'update')
         @method('PUT')
