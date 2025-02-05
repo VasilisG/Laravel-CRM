@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Auth\Access\AuthorizationException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -26,5 +29,19 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    /**
+     * Redirect to dashboard when authorized action takees place.
+     */
+    public function render($request, Throwable $e)
+    {
+        if ($e instanceof AuthorizationException) {
+            return response()->redirectTo(RouteServiceProvider::HOME);
+        }
+        if($e instanceof NotFoundHttpException) {
+            return response()->redirectTo(RouteServiceProvider::HOME);
+        }
+        return parent::render($request, $e);
     }
 }

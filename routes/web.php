@@ -10,11 +10,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
   Route::get('/', DashboardController::class);
-  Route::resource('clients',  ClientController::class,  ['except' => [ 'show' ]]);
-  Route::resource('projects', ProjectController::class, ['except' => [ 'show' ]]);
-  Route::resource('tasks',    TaskController::class,    ['except' => [ 'show' ]]);
-  Route::resource('users',    UserController::class,    ['except' => [ 'show' ]]);
-  Route::resource('roles',    RoleController::class,    ['except' => [ 'show' ]]);
+  Route::get('dashboard', DashboardController::class);
+  Route::resource('clients',  ClientController::class,  ['except' => [ 'show' ]])->middleware('can:clients');
+  Route::resource('projects', ProjectController::class, ['except' => [ 'show' ]])->middleware('can:projects');
+  Route::resource('tasks',    TaskController::class,    ['except' => [ 'show' ]])->middleware('can:tasks');
+  Route::resource('users',    UserController::class,    ['except' => [ 'show' ]])->middleware('can:users');
+  Route::resource('roles',    RoleController::class,    ['except' => [ 'show' ]])->middleware('can:roles');
 });
 
 require __DIR__ . '/auth.php';

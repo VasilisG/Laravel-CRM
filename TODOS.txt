@@ -8,7 +8,8 @@ CRUD operations
 [DONE] Logout Button
 [DONE] Authentication
 [DONE] Roles
-[] Authorization Middleware (third party package)
+[DONE] Authorization Middleware (third party package) (nav, routes)
+[DONE] Small fixes
 ---------------------------------------------------------------
 
 [DONE] Dashboard

@@ -4,7 +4,7 @@
   <div class="login-container-inner z-10 p-6 bg-white rounded-xl shadow-lg max-w-[500px]">
     <div class="login-prompt-container text-center">
       <p class="login-prompt text-2xl font-bold">Login with your email.</p>
-      <p class="login-info text-gray-300 text-gray-400 mt-3 font-semibold">Use your email and the password given to you in order to login and access the admin.</p>
+      <p class="login-info text-gray-300 text-gray-400 mt-3 font-semibold">Use your email and the password given to you in order to login and access the admin panel.</p>
     </div>
     <form id="login-form" class="mt-6" action="{{ route('login') }}" method="POST">
       @csrf
