@@ -1,6 +1,6 @@
 # Laravel CRM
 
-A custom CRM solution developed in Laravel, providing tools to manage:
+A custom CRM solution developed in Laravel:
 
 ### Features
 
